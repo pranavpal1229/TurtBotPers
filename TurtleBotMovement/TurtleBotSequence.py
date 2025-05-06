@@ -28,11 +28,9 @@ def main():
     sound_pub = rospy.Publisher('/sound', UInt8, queue_size=10)
     rospy.sleep(1)  # Wait for publishers to connect
 
-    # 1. Move forward for 2 seconds
     rospy.loginfo("Moving forward...")
     move(cmd_pub, linear_x=0.2, angular_z=0.0, duration=2.0)
 
-    # 2. Turn ~90 degrees (approx. 0.785 rad/s for 2 seconds)
     rospy.loginfo("Turning 90 degrees...")
     move(cmd_pub, linear_x=0.0, angular_z=0.785, duration=2.0)
 
