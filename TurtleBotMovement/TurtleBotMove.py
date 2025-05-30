@@ -8,7 +8,7 @@ def play_confirm_sound(sound_pub):
     Play the TurtleBot3 confirm sound (sound ID 4).
     """
     sound_pub.publish(UInt8(data=4))
-    rospy.sleep(1)  # Give it time to play
+    rospy.sleep(1)  # Give it time to play 
 
 def move(pub, linear_x=0.0, angular_z=0.0, duration=2.0):
     """

@@ -22,6 +22,38 @@ def play_confirm_sound(pub):
     pub.publish(UInt8(data=4))  # Confirm sound
     rospy.sleep(1)
 
+
+def clap_arm():
+    rospy.init_node('turtlebot_clap', anonymous=True)
+    pub = rospy.Publisher('/arm_controller/command', JointTrajectory, queue_size=10)
+    rospy.sleep(1)
+
+    # Define your joint names based on your arm configuration
+    joint_names = ['joint1', 'joint2', 'joint3']  # Replace with actual joint names
+
+    # Define two positions: "open" and "clap"
+    open_position = [0.0, -0.5, 0.5]
+    clap_position = [0.0, 0.0, 0.0]
+
+    traj = JointTrajectory()
+    traj.joint_names = joint_names
+
+    point1 = JointTrajectoryPoint()
+    point1.positions = open_position
+    point1.time_from_start = rospy.Duration(1.0)
+
+    point2 = JointTrajectoryPoint()
+    point2.positions = clap_position
+    point2.time_from_start = rospy.Duration(2.0)
+
+    point3 = JointTrajectoryPoint()
+    point3.positions = open_position
+    point3.time_from_start = rospy.Duration(3.0)
+
+    traj.points = [point1, point2, point3]
+
+    pub.publish(traj)
+
 def main():
     rospy.init_node('simple_turtlebot_sequence')
     cmd_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
